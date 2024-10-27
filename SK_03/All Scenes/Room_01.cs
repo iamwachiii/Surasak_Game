@@ -31,8 +31,6 @@ namespace SK_03
         private Texture2D phakinTexture;
         private Incense incense;
         private Texture2D incenseTexture;
-        private Pick_Guide pickGuide;
-        private Texture2D pickGuideTexture;
         private Candle candle;
         private Texture2D candleTexture;
         private Vector2 guide_pos;
@@ -60,7 +58,6 @@ namespace SK_03
         private Vector2 guide_left_pos;
         private Vector2 guide_right_pos;
         private Vector2 doorGuide_pos;
-        private Vector2 pickGuide_pos;
         private Rectangle candleHitRec_1, candleHitRec_2;
         private Vector2 candle2_pos;
 
