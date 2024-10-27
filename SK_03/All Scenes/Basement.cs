@@ -42,6 +42,24 @@ namespace SK_03
         private Pick_Guide pickGuide;
         private Texture2D pickGuideTexture;
 
+        private Note note;
+        private Texture2D noteTexture;
+        private Texture2D noteGuideTexture;
+        private Texture2D noteFont;
+        private bool noteIsHit = false;
+        private bool showNoteInteractGuide = false;
+        private bool showNoteContent = false;
+        private Vector2 noteGuidePosition;
+        private Rectangle noteGuideRec;
+        private bool spaceBarPressed = false;
+        private Rectangle noteHitRec;
+
+        private float fontAlpha = 0f;
+        private float noteGuideAlpha = 0f;
+        private float noteFontAlpha = 0f;
+        private const float FADE_SPEED = 2f;
+        private const float NOTE_FADE_SPEED = 2f;
+
         private Texture2D font_BloodTable;
 
         private bool bloodTableIsHit = false;
@@ -99,6 +117,9 @@ namespace SK_03
             bloodTableTexture = game.Content.Load<Texture2D>("Tiles_basement");
             ghost1Texture = game.Content.Load<Texture2D>("Tiles_basement");
             ghostPicTexture = game.Content.Load<Texture2D>("Tiles_basement");
+            noteTexture = game.Content.Load<Texture2D>("Tiles_note");
+            noteGuideTexture = game.Content.Load<Texture2D>("Note_Guide");
+            noteFont = game.Content.Load<Texture2D>("Font_01");
 
             font_BloodTable = game.Content.Load<Texture2D>("Font_01");
 
@@ -111,10 +132,15 @@ namespace SK_03
             blood_Table = new Blood_Table(bloodTableTexture);
             ghost_1 = new Ghost_1(ghost1Texture);
             ghost_2 = new Ghost_2(ghostPicTexture);
+            note = new Note(noteTexture);
 
             openDoorSound = game.Content.Load<SoundEffect>("sound_opendoor");
 
             balcony_Key_pos = new Vector2(1550, 600);
+
+            note.note_pos = new Vector2(3100, 550);
+            noteHitRec = new Rectangle((int)note.note_pos.X, (int)note.note_pos.Y, note.noteWidth, note.noteHeight);
+            noteGuideRec = new Rectangle(0, 0, 1920, 1080);
 
             door_left_pos = new Vector2(0, 255);
             door_right_pos = new Vector2(basementTexture.Width - door.doorWidth, 255);
@@ -182,6 +208,53 @@ namespace SK_03
                 game.player.player_pos.Y - fontRectangle_BloodTable.Height - 5
             );
         }
+        private void NoteInteract(GameTime theTime)
+        {
+            float deltaTime = (float)theTime.ElapsedGameTime.TotalSeconds;
+
+            noteIsHit = game.player.playerHitRec.Intersects(noteHitRec);
+
+            if (noteIsHit)
+            {
+                if (!showNoteContent)
+                {
+                    showNoteInteractGuide = true;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spaceBarPressed)
+                {
+                    spaceBarPressed = true;
+                    showNoteInteractGuide = false;
+                    showNoteContent = !showNoteContent;
+                }
+            }
+            else
+            {
+                showNoteInteractGuide = false;
+                showNoteContent = false;
+                spaceBarPressed = false;
+                noteGuideAlpha = MathHelper.Max(noteGuideAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+                noteFontAlpha = MathHelper.Max(noteFontAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+            }
+
+            if (Keyboard.GetState().IsKeyUp(Keys.Space))
+            {
+                spaceBarPressed = false;
+            }
+
+            // Handle fade effects
+            if (showNoteContent)
+            {
+                noteGuideAlpha = MathHelper.Min(noteGuideAlpha + NOTE_FADE_SPEED * deltaTime, 1f);
+                noteFontAlpha = MathHelper.Min(noteFontAlpha + NOTE_FADE_SPEED * deltaTime, 1f);
+            }
+            else if (!showNoteInteractGuide)
+            {
+                noteGuideAlpha = MathHelper.Max(noteGuideAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+                noteFontAlpha = MathHelper.Max(noteFontAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+            }
+        }
+
         private void OpenDoor()
         {
             if (game.player.playerHitRec.Intersects(doorHitRec_left) && game.player.direction == 0)
@@ -229,6 +302,7 @@ namespace SK_03
             game.Update_camera();
 
             OpenDoor();
+            NoteInteract(theTime);
             ObjectInteract(theTime);
 
             if (game.player.isHitObj == true)
@@ -238,6 +312,7 @@ namespace SK_03
                     game.player.player_pos.Y - 90);
 
             }
+            noteGuidePosition = new Vector2(0, 0);
 
             base.Update(theTime);
         }
@@ -250,6 +325,8 @@ namespace SK_03
             theBatch.Draw(bloodTableTexture, blood_Table.bloodTable_pos - game.cameraPos, blood_Table.bloodTableRec, game.transparentColor);
             theBatch.Draw(ghostPicTexture, ghost_2.ghostPic_pos - game.cameraPos, ghost_2.ghostPicRec, game.transparentColor);
             theBatch.Draw(ghost1Texture, ghost_1.ghost1_pos - game.cameraPos, ghost_1.ghost1Rec, game.transparentColor);
+            theBatch.Draw(noteTexture, note.note_pos - game.cameraPos, note.noteRec, game.transparentColor);
+
             game.Update_Draw();
 
         }
@@ -276,6 +353,21 @@ namespace SK_03
             {
                 theBatch.Draw(font_BloodTable, font_BloodTable_Pos - game.cameraPos, fontRectangle_BloodTable, Color.White);
             }
+            if (showNoteInteractGuide)
+            {
+                theBatch.Draw(guideTexture, guide_pos - game.cameraPos, guide.guideRec_right, Color.White);
+            }
+
+            if (noteGuideAlpha > 0f)
+            {
+                theBatch.Draw(noteGuideTexture, noteGuidePosition, noteGuideRec, Color.White * noteGuideAlpha);
+            }
+
+            if (noteFontAlpha > 0f)
+            {
+                theBatch.Draw(noteFont, new Vector2(670, 415), new Rectangle(357, 29, 622, 290), Color.White * noteFontAlpha);
+            }
+
         }
 
     }

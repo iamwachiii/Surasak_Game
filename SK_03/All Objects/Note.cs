@@ -13,18 +13,19 @@ namespace SK_03
     {
         public int noteWidth, noteHeight;
         public Rectangle noteRec;
-        public Rectangle noteHitRec;
         public Vector2 note_pos;
-        public bool isVisible = true;
 
         public Note(Texture2D texture)
         {
+            noteWidth = 64;
+            noteHeight = 80;
 
-            noteWidth = texture.Width;
-            noteHeight = texture.Height;
+            noteRec = new Rectangle(800, 144, noteWidth, noteHeight);
+        }
 
-            noteRec = new Rectangle(0, 0, noteWidth, noteHeight);
-            noteHitRec = new Rectangle((int)note_pos.X, (int)note_pos.Y, noteWidth, noteHeight);
-        }    
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
     }
 }

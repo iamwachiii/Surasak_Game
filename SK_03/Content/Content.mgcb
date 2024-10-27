@@ -13,96 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../Downloads/Sound_Game/Sound_chase.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../Downloads/Sound_Game/Sound_chase.wav;Sound_chase.wav
-
-#begin ../../../../../Downloads/Sound_Game/Sound_JumpScare1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../Downloads/Sound_Game/Sound_JumpScare1.wav;Sound_JumpScare1.wav
-
-#begin ../../../../../Downloads/Sound_Game/Sound_opendoor.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../Downloads/Sound_Game/Sound_opendoor.WAV;Sound_opendoor.WAV
-
-#begin ../../../../../Downloads/Sound_Game/Sound_Surasuk_Run.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../Downloads/Sound_Game/Sound_Surasuk_Run.WAV;Sound_Surasuk_Run.WAV
-
-#begin ../../../../../Downloads/Sound_Game/Sound_Surasuk_Walk.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../Downloads/Sound_Game/Sound_Surasuk_Walk.WAV;Sound_Surasuk_Walk.WAV
-
-#begin ../../../../files Surasak/Heart_Tiles_ShowInventory.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../files Surasak/Heart_Tiles_ShowInventory.png;Heart_Tiles_ShowInventory.png
-
-#begin ../../../../files Surasak/Heart_Tiles_Showmap.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../files Surasak/Heart_Tiles_Showmap.png;Heart_Tiles_Showmap.png
-
-#begin ../../../../Surasak/Surasak_Cutscenes/Surasak_MainMenu/SK_03/Content/Cersor.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../Surasak/Surasak_Cutscenes/Surasak_MainMenu/SK_03/Content/Cersor.png;Cersor.png
-
-#begin ../../../../Surasak/Surasak_Cutscenes/Surasak_MainMenu/SK_03/Content/Font_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../Surasak/Surasak_Cutscenes/Surasak_MainMenu/SK_03/Content/Font_01.png;Font_01.png
-
-#begin ../../../../Surasak/Surasak_Cutscenes/Surasak_MainMenu/SK_03/Content/Font_Menu.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../Surasak/Surasak_Cutscenes/Surasak_MainMenu/SK_03/Content/Font_Menu.png;Font_Menu.png
-
 #begin Balcony.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -338,6 +248,30 @@
 /processorParam:TextureFormat=Color
 /build:HealthBar_thumb2.png
 
+#begin Heart_Tiles_ShowInventory.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Heart_Tiles_ShowInventory.png
+
+#begin Heart_Tiles_Showmap.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Heart_Tiles_Showmap.png
+
 #begin Icon_2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -493,6 +427,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:menu.png
+
+#begin Note_Guide.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Note_Guide.png
 
 #begin Note.jpg
 /importer:TextureImporter
@@ -859,6 +805,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles_map2.png
+
+#begin Tiles_note.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tiles_note.png
 
 #begin Tiles_Rest_Room.png
 /importer:TextureImporter

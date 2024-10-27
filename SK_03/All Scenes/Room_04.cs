@@ -114,7 +114,7 @@ namespace SK_03
         public override void Update(GameTime theTime)
         {
             game.Update_components(theTime);
-            game.UpdateLightRoom04();
+            game.UpdateLightRoom();
 
             game.Update_camera();
 
