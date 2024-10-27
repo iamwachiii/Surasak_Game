@@ -629,7 +629,7 @@ namespace SK_03
 
             _flashLight.Rotation = player.direction == 0 ? MathHelper.Pi : 0f;
         }
-        public void UpdateLightRoom04()
+        public void UpdateLightRoom()
         {
             _penumbra.AmbientColor = new Color(251, 50, 245, 255);
             OpenFlash();
