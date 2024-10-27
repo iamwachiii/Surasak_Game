@@ -407,7 +407,7 @@ namespace SK_03
         }
         public void DrawUI(SpriteBatch theBatch)
         {
-            if (game.player.isHitObj == true && game.player.playerHitRec.Intersects(game.bedroom_Key.Bedroom_KeyHitRec) && game.bedroom_Key.isVisible == true)
+            if (game.player.isHitObj == true && game.player.playerHitRec.Intersects(game.bedroom_Key.Bedroom_KeyHitRec) && game.bedroom_Key.isVisible == true && (Keyboard.GetState().IsKeyDown(Keys.A) == false && Keyboard.GetState().IsKeyDown(Keys.D) == false))
             {
                 theBatch.Draw(pickGuideTexture, pickGuide_pos - game.cameraPos, pickGuide.pick_GuideRec, Color.White);
             }
@@ -435,16 +435,16 @@ namespace SK_03
             {
                 theBatch.Draw(guideTexture, guide_pos - game.cameraPos, guide.guideRec_right, Color.White);
             }
-            if (showChairGuide)
+            if (showChairGuide && (Keyboard.GetState().IsKeyDown(Keys.A) == false && Keyboard.GetState().IsKeyDown(Keys.D) == false))
             {
                 theBatch.Draw(guideTexture, guide_pos - game.cameraPos, guide.guideRec_right, Color.White);
             }
 
-            if (showJar01Font)
+            if (showJar01Font && (Keyboard.GetState().IsKeyDown(Keys.A) == false && Keyboard.GetState().IsKeyDown(Keys.D) == false))
             {
                 theBatch.Draw(font_Jar01, font_Jar01_Pos - game.cameraPos, fontRectangle_Jar01, Color.White);
             }
-            if (showChairFont)
+            if (showChairFont && (Keyboard.GetState().IsKeyDown(Keys.A) == false && Keyboard.GetState().IsKeyDown(Keys.D) == false))
             {
                 theBatch.Draw(font_Chair, font_Chair_Pos - game.cameraPos, fontRectangle_Chair, Color.White);
             }
