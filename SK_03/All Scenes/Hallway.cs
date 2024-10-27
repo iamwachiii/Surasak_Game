@@ -22,6 +22,8 @@ namespace SK_03
         private Texture2D stairGuideTexture;
         private Door_Guide doorGuide;
         private Texture2D doorGuideTexture;
+        private Candle candle;
+        private Texture2D candleTexture;
 
         private Game1 game;
         private Door door;
@@ -46,8 +48,12 @@ namespace SK_03
         private Texture2D font_Jar01;
         private Texture2D font_Chair;
 
+        private Texture2D noteGuideTexture;
+        private Texture2D noteFont;
+
         private bool jar01IsHit = false;
         private bool chairIsHit = false;
+        private bool binIsHit = false;
 
         private bool showJar01Font = false;
         private bool showChairFont = false;
@@ -69,27 +75,36 @@ namespace SK_03
         private Vector2 bedroom_Key_pos;
         private Vector2 pickGuide_pos;
         
-
         private Vector2 guide_pos;
         private Vector2 stair_pos;
         private bool doorLeftIsHit, doorRightIsHit = false;
         private bool stairIsHit = false;
 
-        
-
         private float fontTimer = 0f;
         private const float FONT_DISPLAY_TIME = 1.5f;
 
         private Rectangle doorHitRec_left, doorHitRec_right;
-        private Rectangle jar01HitRec, chairHitRec;
+        private Rectangle jar01HitRec, chairHitRec, binHitRec;
         private Rectangle guideRectangle;
         private Rectangle stairHitRec;
         private Rectangle stairGuideRectangle;
         private Rectangle doorGuideRectangle;
         private Rectangle lock_GuideRec;
+        private Vector2 noteGuidePosition;
+        private Rectangle noteGuideRec;
+
+        private bool showNoteInteractGuide = false;
+        private bool showNoteContent = false;
 
         private SoundEffect openDoorSound;
         private bool eKeyPressed = false;
+        private bool spaceBarPressed = false;
+
+        private float fontAlpha = 0f;
+        private float noteGuideAlpha = 0f;
+        private float noteFontAlpha = 0f;
+        private const float FADE_SPEED = 2f;
+        private const float NOTE_FADE_SPEED = 2f;
         public Hallway(Game1 game, EventHandler theScreenEvent) : base(theScreenEvent)
         {
             this.game = game;
@@ -108,9 +123,12 @@ namespace SK_03
             pictureTexture1 = game.Content.Load<Texture2D>("Tiles_hallway");
             binTexture = game.Content.Load<Texture2D>("Tiles_hallway");
             stairTexture = game.Content.Load<Texture2D>("Tiles_hallway");
+            noteGuideTexture = game.Content.Load<Texture2D>("Note_Guide");
+            noteFont = game.Content.Load<Texture2D>("Font_01");
 
             font_Jar01 = game.Content.Load<Texture2D>("Font_01");
             font_Chair = game.Content.Load<Texture2D>("Font_01");
+            candleTexture = game.Content.Load<Texture2D>("Candle");
 
             openDoorSound = game.Content.Load<SoundEffect>("sound_opendoor");
 
@@ -126,6 +144,7 @@ namespace SK_03
             picture_hallway = new Picture_hallway(pictureTexture1);
             bin = new Bin(binTexture);
             stair = new Stairs(stairTexture);
+            candle = new Candle(game,candleTexture, new Vector2(1450, 418));
 
             bedroom_Key_pos = new Vector2(3565, 590);
 
@@ -144,10 +163,15 @@ namespace SK_03
 
             jar01HitRec = new Rectangle((int)jar_01.jar_pos.X, (int)jar_01.jar_pos.Y, jar_01.jarWidth, jar_01.jarHeight);
             chairHitRec = new Rectangle((int)chair_Hallway.chair_pos.X, (int)chair_Hallway.chair_pos.Y, chair_Hallway.chairWidth, chair_Hallway.chairHeight);
+            binHitRec = new Rectangle((int)bin.bin_pos.X, (int)bin.bin_pos.Y, bin.binWidth, bin.binHeight);
 
             fontRectangle_Jar01 = new Rectangle(0, 539, 240, 98);
             fontRectangle_Chair = new Rectangle(0, 446, 235, 98);
             
+            candle.candle_pos = new Vector2(1450, 418);
+            noteGuideRec = new Rectangle(0, 0, 1920, 1080);
+
+
         }
         private void ObjectInteract(GameTime theTime)
         {
@@ -159,7 +183,7 @@ namespace SK_03
                 {
                     showJar01Guide = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.E) && !eKeyPressed)
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !eKeyPressed)
                 {
                     eKeyPressed = true;
                     showJar01Guide = false;
@@ -173,7 +197,7 @@ namespace SK_03
                 showJar01Font = false;
                 eKeyPressed = false;
             }
-            if (Keyboard.GetState().IsKeyUp(Keys.E))
+            if (Keyboard.GetState().IsKeyUp(Keys.Space))
             {
                 eKeyPressed = false;
             }
@@ -194,7 +218,7 @@ namespace SK_03
                 {
                     showChairGuide = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.E) && !eKeyPressed)
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !eKeyPressed)
                 {
                     eKeyPressed = true;
                     showChairGuide = false;
@@ -208,7 +232,7 @@ namespace SK_03
                 showChairFont = false;
                 eKeyPressed = false;
             }
-            if (Keyboard.GetState().IsKeyUp(Keys.E))
+            if (Keyboard.GetState().IsKeyUp(Keys.Space))
             {
                 eKeyPressed = false;
             }
@@ -221,7 +245,7 @@ namespace SK_03
                 }
             }
 
-            if (Keyboard.GetState().IsKeyUp(Keys.E))
+            if (Keyboard.GetState().IsKeyUp(Keys.Space))
             {
                 eKeyPressed = false;
             }
@@ -240,6 +264,52 @@ namespace SK_03
                 game.player.player_pos.Y - fontRectangle_Chair.Height - 5
             );
         }
+        private void NoteInteract(GameTime theTime)
+        {
+            float deltaTime = (float)theTime.ElapsedGameTime.TotalSeconds;
+
+            binIsHit = game.player.playerHitRec.Intersects(binHitRec);
+
+            if (binIsHit)
+            {
+                if (!showNoteContent)
+                {
+                    showNoteInteractGuide = true;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spaceBarPressed)
+                {
+                    spaceBarPressed = true;
+                    showNoteInteractGuide = false;
+                    showNoteContent = !showNoteContent;
+                }
+            }
+            else
+            {
+                showNoteInteractGuide = false;
+                showNoteContent = false;
+                spaceBarPressed = false;
+                noteGuideAlpha = MathHelper.Max(noteGuideAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+                noteFontAlpha = MathHelper.Max(noteFontAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+            }
+
+            if (Keyboard.GetState().IsKeyUp(Keys.Space))
+            {
+                spaceBarPressed = false;
+            }
+
+            // Handle fade effects
+            if (showNoteContent)
+            {
+                noteGuideAlpha = MathHelper.Min(noteGuideAlpha + NOTE_FADE_SPEED * deltaTime, 1f);
+                noteFontAlpha = MathHelper.Min(noteFontAlpha + NOTE_FADE_SPEED * deltaTime, 1f);
+            }
+            else if (!showNoteInteractGuide)
+            {
+                noteGuideAlpha = MathHelper.Max(noteGuideAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+                noteFontAlpha = MathHelper.Max(noteFontAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+            }
+        }
         private void OpenDoor()
         {
             if (game.player.playerHitRec.Intersects(doorHitRec_left) && game.player.direction == 0)
@@ -249,9 +319,10 @@ namespace SK_03
                     game.player.player_pos.X + (game.player.frameWidth / 2) - (doorGuide.doorGuideWidth / 2),
                     game.player.player_pos.Y - doorGuide.doorGuideHeight - 20);
 
-                if (Keyboard.GetState().IsKeyDown(Keys.E) == true)
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) == true)
                 {
                     openDoorSound.CreateInstance().Play();
+                    candle.CleanupLight();
                     ScreenEvent.Invoke(game.living_room, new EventArgs());
                     return;
                 }
@@ -263,9 +334,10 @@ namespace SK_03
                             game.player.player_pos.X + (game.player.frameWidth / 2) - (doorGuide.doorGuideWidth / 2),
                             game.player.player_pos.Y - doorGuide.doorGuideHeight - 20);
 
-                if (Keyboard.GetState().IsKeyDown(Keys.E) == true)
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) == true)
                 {
                     openDoorSound.CreateInstance().Play();
+                    candle.CleanupLight();
                     ScreenEvent.Invoke(game.kitchen_room, new EventArgs());
                     return;
                 }
@@ -276,7 +348,7 @@ namespace SK_03
             {
                 game.switch_Scenes = "GoHallway_2";
                 stairIsHit = true;
-                if (Keyboard.GetState().IsKeyDown(Keys.E) == true)
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) == true)
                 {
                     ScreenEvent.Invoke(game.hallway_2, new EventArgs());
                     return;
@@ -294,6 +366,7 @@ namespace SK_03
         {
             game.Update_components(theTime);
             game.UpdateLightPositions();
+            candle.InitializeCandleLight();
 
             if (game.bedroom_Key.isVisible == true)
                 game.bedroom_Key.Bedroom_KeyHitRec = new Rectangle((int)bedroom_Key_pos.X, (int)bedroom_Key_pos.Y, game.bedroom_Key.Bedroom_KeyWidth, game.bedroom_Key.Bedroom_KeyHeight);
@@ -301,6 +374,7 @@ namespace SK_03
             game.Update_camera();
 
             OpenDoor();
+            NoteInteract(theTime);
             ObjectInteract(theTime);
 
             if (game.player.isHitObj == true)
@@ -310,6 +384,8 @@ namespace SK_03
                     game.player.player_pos.Y - 90);
 
             }
+            candle.Update(theTime);
+            noteGuidePosition = new Vector2(0, 0);
 
             base.Update(theTime);
         }       
@@ -323,6 +399,8 @@ namespace SK_03
             theBatch.Draw(jarTexture1, jar_01.jar_pos - game.cameraPos, jar_01.jarRec, game.transparentColor);
             theBatch.Draw(pictureTexture1, picture_hallway.picture1_pos - game.cameraPos, picture_hallway.picture1Rec, game.transparentColor);
             theBatch.Draw(binTexture, bin.bin_pos - game.cameraPos, bin.binRec, game.transparentColor);
+
+            theBatch.Draw(candleTexture, candle.candle_pos - game.cameraPos, candle.sourceRectangle, game.transparentColor);
 
             game.Update_Draw();
 
@@ -342,7 +420,7 @@ namespace SK_03
             {
                 theBatch.Draw(doorGuideTexture, doorGuide_pos - game.cameraPos, doorGuide.doorGuideRec, Color.White);
             }
-            if (stairIsHit == true )
+            if (stairIsHit == true)
             {
                 theBatch.Draw(stairGuideTexture, stair_pos - game.cameraPos, stairGuide.stairGuideRec, Color.White);
             }
@@ -369,6 +447,20 @@ namespace SK_03
             if (showChairFont && (Keyboard.GetState().IsKeyDown(Keys.A) == false && Keyboard.GetState().IsKeyDown(Keys.D) == false))
             {
                 theBatch.Draw(font_Chair, font_Chair_Pos - game.cameraPos, fontRectangle_Chair, Color.White);
+            }
+            if (showNoteInteractGuide)
+            {
+                theBatch.Draw(guideTexture, guide_pos - game.cameraPos, guide.guideRec_right, Color.White);
+            }
+
+            if (noteGuideAlpha > 0f)
+            {
+                theBatch.Draw(noteGuideTexture, noteGuidePosition, noteGuideRec, Color.White * noteGuideAlpha);
+            }
+
+            if (noteFontAlpha > 0f)
+            {
+                theBatch.Draw(noteFont, new Vector2(670, 415), new Rectangle(357, 29, 622, 290), Color.White * noteFontAlpha);
             }
         }
 
