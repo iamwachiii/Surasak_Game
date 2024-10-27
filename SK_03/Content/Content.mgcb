@@ -73,30 +73,6 @@
 /processorParam:TextureFormat=Color
 /build:Cersor.png
 
-#begin Cersor.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Cersor.png
-
-#begin Cersor.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Cersor.png
-
 #begin Cover.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -120,18 +96,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:DetailTexture_item.png
-
-#begin Font_01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Font_01.png
 
 #begin Font_01.png
 /importer:TextureImporter
@@ -192,18 +156,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Font_05.png
-
-#begin Font_Menu.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Font_Menu.png
 
 #begin Font_Menu.png
 /importer:TextureImporter
@@ -476,6 +428,18 @@
 /processorParam:TextureFormat=Color
 /build:menu.png
 
+#begin Note_Guide.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Note_Guide.png
+
 #begin Note.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -626,29 +590,11 @@
 /processorParam:Quality=Best
 /build:sound_Background1.wav
 
-#begin sound_Background1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound_Background1.wav
-
 #begin sound_Background2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sound_Background2.wav
-
-#begin sound_Background2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound_Background2.wav
-
-#begin sound_chase.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound_chase.wav
 
 #begin sound_chase.wav
 /importer:WavImporter
@@ -662,29 +608,11 @@
 /processorParam:Quality=Best
 /build:Sound_Close_light.WAV
 
-#begin Sound_Close_light.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Close_light.WAV
-
 #begin Sound_Collect.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound_Collect.wav
-
-#begin Sound_Collect.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Collect.wav
-
-#begin Sound_In_Hide.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_In_Hide.WAV
 
 #begin Sound_In_Hide.WAV
 /importer:WavImporter
@@ -698,29 +626,11 @@
 /processorParam:Quality=Best
 /build:sound_JumpScare1.wav
 
-#begin sound_JumpScare1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound_JumpScare1.wav
-
 #begin Sound_Killer_chase.WAV
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound_Killer_chase.WAV
-
-#begin Sound_Killer_chase.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Killer_chase.WAV
-
-#begin Sound_Open_bag.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Open_bag.WAV
 
 #begin Sound_Open_bag.WAV
 /importer:WavImporter
@@ -734,29 +644,11 @@
 /processorParam:Quality=Best
 /build:Sound_Open_light.WAV
 
-#begin Sound_Open_light.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Open_light.WAV
-
 #begin sound_opendoor.WAV
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sound_opendoor.WAV
-
-#begin sound_opendoor.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound_opendoor.WAV
-
-#begin Sound_Out_Hide.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Out_Hide.WAV
 
 #begin Sound_Out_Hide.WAV
 /importer:WavImporter
@@ -770,18 +662,6 @@
 /processorParam:Quality=Best
 /build:Sound_Sanity_Timeout.WAV
 
-#begin Sound_Sanity_Timeout.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Sanity_Timeout.WAV
-
-#begin Sound_Sanity_Timeup.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Sanity_Timeup.WAV
-
 #begin Sound_Sanity_Timeup.WAV
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -794,29 +674,11 @@
 /processorParam:Quality=Best
 /build:Sound_Surasuk_Run.WAV
 
-#begin Sound_Surasuk_Run.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Surasuk_Run.WAV
-
 #begin Sound_Surasuk_Walk.WAV
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound_Surasuk_Walk.WAV
-
-#begin Sound_Surasuk_Walk.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Surasuk_Walk.WAV
-
-#begin Sound_Unlocked_Door.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound_Unlocked_Door.WAV
 
 #begin Sound_Unlocked_Door.WAV
 /importer:WavImporter
@@ -943,6 +805,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles_map2.png
+
+#begin Tiles_note.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tiles_note.png
 
 #begin Tiles_Rest_Room.png
 /importer:TextureImporter
