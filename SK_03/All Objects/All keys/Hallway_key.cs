@@ -19,6 +19,7 @@ namespace SK_03.All_Objects
 
         public Hallway_key(Texture2D texture)
         {
+            Hallway_keyWidth = texture.Width/7;
             Hallway_keyHeight = texture.Height;
 
             Hallway_keyRec = new Rectangle(Hallway_keyWidth * 0 , 0, Hallway_keyWidth, Hallway_keyHeight);

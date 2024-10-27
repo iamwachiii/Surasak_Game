@@ -19,6 +19,7 @@ namespace SK_03.All_Objects.All_keys
 
         public Basement_key(Texture2D texture)
         {
+            Basement_keyWidth = texture.Width / 7; ; //240
             Basement_keyHeight = texture.Height; ; //1350 
 
             Basement_keyRec = new Rectangle(Basement_keyWidth * 2, 0, Basement_keyWidth, Basement_keyHeight);

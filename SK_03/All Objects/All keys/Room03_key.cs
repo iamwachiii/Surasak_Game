@@ -19,6 +19,7 @@ namespace SK_03.All_Objects
 
         public Room03_key(Texture2D texture)
         {
+            Room03_keyWidth = texture.Width / 7;
             Room03_keyHeight = texture.Height;
 
             Room03_keyRec = new Rectangle(Room03_keyWidth * 3, 0, Room03_keyWidth, Room03_keyHeight);

@@ -17,7 +17,10 @@ namespace SK_03.All_Objects.Bedroom_Objs
         public Wardrobe(Texture2D texture)
         {
             wardrobe_pos = new Vector2(95, 214);
+            wardrobeWidth = 544;
+            wardrobeHeight = 680;
 
+            wardrobeRec = new Rectangle(384, 256, wardrobeWidth, wardrobeHeight);
         }
 
         public override void Update(GameTime gameTime)

@@ -19,6 +19,7 @@ namespace SK_03.All_Objects.All_keys
 
         public Bedroom_Key(Texture2D texture)
         {
+            Bedroom_KeyWidth = texture.Width / 7;
             Bedroom_KeyHeight = texture.Height;
 
             Bedroom_KeyRec = new Rectangle(Bedroom_KeyWidth * 1, 0, Bedroom_KeyWidth, Bedroom_KeyHeight);
