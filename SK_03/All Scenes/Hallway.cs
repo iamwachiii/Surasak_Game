@@ -425,11 +425,6 @@ namespace SK_03
                 theBatch.Draw(stairGuideTexture, stair_pos - game.cameraPos, stairGuide.stairGuideRec, Color.White);
             }
 
-            if (game.player.playerHitRec.Intersects(game.note.noteHitRec))
-            {
-                if (game.note.isVisible == true && (Keyboard.GetState().IsKeyDown(Keys.A) == false && Keyboard.GetState().IsKeyDown(Keys.D) == false))
-                    theBatch.Draw(guideTexture, guide_pos_note - game.cameraPos, guide.guideRec, Color.White);
-            }
 
             if (showJar01Guide && (Keyboard.GetState().IsKeyDown(Keys.A) == false && Keyboard.GetState().IsKeyDown(Keys.D) == false))
             {
