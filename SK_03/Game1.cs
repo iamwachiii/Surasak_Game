@@ -283,7 +283,7 @@ namespace SK_03
         {
             AllContent();
 
-            currentScene = bed_Room;
+            currentScene = room_02;
 
             components = new List<Component>() { player, UI_sanity, UI_stamina };
 
