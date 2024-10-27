@@ -19,7 +19,6 @@ namespace SK_03.All_Objects.All_keys
 
         public Hairpin(Texture2D texture)
         {
-            HairpinWidth = texture.Width / 7; //240
             HairpinHeight = texture.Height; //1350 
 
             HairpinRec = new Rectangle(HairpinWidth * 5, 0, HairpinWidth, HairpinHeight);

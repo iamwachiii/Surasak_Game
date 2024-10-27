@@ -24,7 +24,6 @@ public class Candle : Sprite
     private float candleLightOscillationSpeed = 10f;  // Speed for flicker
     private float candleLightOscillationAmount = 10f; // Increased movement for more dramatic flicker
     private Random random = new Random();
-    private bool candleIsActive = true;
 
     public Candle(Game1 game, Texture2D texture, Vector2 position)
     {
@@ -75,12 +74,6 @@ public class Candle : Sprite
             candleLight.Position = candle_pos - game.cameraPos + new Vector2(candleWidth / 2, 20 + oscillationOffset);
         }
     }
-    public void ExtinguideCandle()
-    {
-        currentFrame = 0;
-        CleanupLight();
-        candleIsActive = !candleIsActive;
-    }
 
 
     public override void Update(GameTime gameTime)
@@ -90,17 +83,7 @@ public class Candle : Sprite
         destinationRectangle.Y = (int)candle_pos.Y;
 
         // Update the candle animation
-        if (candleIsActive == true)
         {
-            elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (elapsedTime >= timePerFrame)
-            {
-                currentFrame = (currentFrame + 1) % totalFrames;
-                elapsedTime = 0;
-                sourceRectangle.X = currentFrame * candleWidth;
-            }
-
-            UpdateCandleLight(gameTime);
         }
 
         base.Update(gameTime);

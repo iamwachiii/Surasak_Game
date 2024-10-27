@@ -19,7 +19,6 @@ namespace SK_03.All_Objects.All_keys
 
         public Balcony_key(Texture2D texture)
         {
-            Balcony_keyWidth = texture.Width / 7;
             Balcony_keyHeight = texture.Height;
 
             Balcony_keyRec = new Rectangle(Balcony_keyWidth * 4, 0, Balcony_keyWidth, Balcony_keyHeight);
