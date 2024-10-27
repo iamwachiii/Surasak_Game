@@ -37,6 +37,24 @@ namespace SK_03
         private Texture2D candleTexture2;
         private Vector2 candle2_pos;
 
+        private Note note;
+        private Texture2D noteTexture;
+        private Texture2D noteGuideTexture;
+        private Texture2D noteFont;
+        private bool noteIsHit = false;
+        private bool showNoteInteractGuide = false;
+        private bool showNoteContent = false;
+        private Vector2 noteGuidePosition;
+        private Rectangle noteGuideRec;
+        private bool spaceBarPressed = false;
+        private Rectangle noteHitRec;
+
+        private float fontAlpha = 0f;
+        private float noteGuideAlpha = 0f;
+        private float noteFontAlpha = 0f;
+        private const float FADE_SPEED = 2f;
+        private const float NOTE_FADE_SPEED = 2f;
+
         private Vector2 door_left_pos;
         private Vector2 door_right_pos;
         private Vector2 guide_left_pos;
@@ -73,6 +91,10 @@ namespace SK_03
             paenghomTexture = game.Content.Load<Texture2D>("Tiles_Room_02");
             candleTexture = game.Content.Load<Texture2D>("Candle");
 
+            noteTexture = game.Content.Load<Texture2D>("Tiles_note");
+            noteGuideTexture = game.Content.Load<Texture2D>("Note_Guide");
+            noteFont = game.Content.Load<Texture2D>("Font_01");
+
             openDoorSound = game.Content.Load<SoundEffect>("sound_opendoor");
 
             door = new Door(doorTexture);
@@ -81,6 +103,7 @@ namespace SK_03
             heartPic = new Heart_Pic(heartTexture);
             Paenghom = new Paenghom(paenghomTexture);
             candle = new Candle(game, candleTexture, new Vector2(650, 618));
+            note = new Note(noteTexture);
 
             // กำหนดตำแหน่งและสร้าง Candle ตัวที่สอง
             candle2_pos = new Vector2(200, 618); // ตั้งค่าตำแหน่งที่ต้องการ
@@ -99,9 +122,58 @@ namespace SK_03
             guideRectangle = new Rectangle(0, 0, guide.guideWidth, guide.guideHeight);
             doorGuideRectangle = new Rectangle(0, 0, doorGuide.doorGuideWidth, doorGuide.doorGuideHeight);
 
+            note.note_pos = new Vector2(1350, 550);
+            noteHitRec = new Rectangle((int)note.note_pos.X, (int)note.note_pos.Y, note.noteWidth, note.noteHeight);
+            noteGuideRec = new Rectangle(0, 0, 1920, 1080);
+
             candle.candle_pos = new Vector2(650, 618);
         }
+        private void NoteInteract(GameTime theTime)
+        {
+            float deltaTime = (float)theTime.ElapsedGameTime.TotalSeconds;
 
+            noteIsHit = game.player.playerHitRec.Intersects(noteHitRec);
+
+            if (noteIsHit)
+            {
+                if (!showNoteContent)
+                {
+                    showNoteInteractGuide = true;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spaceBarPressed)
+                {
+                    spaceBarPressed = true;
+                    showNoteInteractGuide = false;
+                    showNoteContent = !showNoteContent;
+                }
+            }
+            else
+            {
+                showNoteInteractGuide = false;
+                showNoteContent = false;
+                spaceBarPressed = false;
+                noteGuideAlpha = MathHelper.Max(noteGuideAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+                noteFontAlpha = MathHelper.Max(noteFontAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+            }
+
+            if (Keyboard.GetState().IsKeyUp(Keys.Space))
+            {
+                spaceBarPressed = false;
+            }
+
+            // Handle fade effects
+            if (showNoteContent)
+            {
+                noteGuideAlpha = MathHelper.Min(noteGuideAlpha + NOTE_FADE_SPEED * deltaTime, 1f);
+                noteFontAlpha = MathHelper.Min(noteFontAlpha + NOTE_FADE_SPEED * deltaTime, 1f);
+            }
+            else if (!showNoteInteractGuide)
+            {
+                noteGuideAlpha = MathHelper.Max(noteGuideAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+                noteFontAlpha = MathHelper.Max(noteFontAlpha - NOTE_FADE_SPEED * deltaTime, 0f);
+            }
+        }
         private void OpenDoor()
         {
             if (game.player.playerHitRec.Intersects(doorHitRec_right) && game.player.direction == 1 && game.player.delayDoor > 0.5)
@@ -126,14 +198,14 @@ namespace SK_03
         public override void Update(GameTime theTime)
         {
             game.Update_components(theTime);
-            game.UpdateLightRoom04();
+            game.UpdateLightRoom();
             candle.InitializeCandleLight();
             candle2.InitializeCandleLight();
 
             game.player.delayDoor += (float)theTime.ElapsedGameTime.TotalSeconds;
 
             game.Update_camera();
-
+            NoteInteract(theTime);
             OpenDoor();
 
             candle.Update(theTime);
@@ -150,7 +222,10 @@ namespace SK_03
                     Console.WriteLine("lll");
                 }
             }
-
+            guide_pos = new Vector2(
+               game.player.player_pos.X + (game.player.frameWidth / 2) - (guideRectangle.Width / 2),
+               game.player.player_pos.Y - guideRectangle.Height - 5
+           );
             base.Update(theTime);
         }
 
@@ -159,7 +234,7 @@ namespace SK_03
             theBatch.Draw(doorTexture, door_right_pos - game.cameraPos, door.doorRec_right, game.transparentColor);
             theBatch.Draw(heartTexture, heartPic.heartPic_pos - game.cameraPos, heartPic.heartPicRec, game.transparentColor);
             theBatch.Draw(paenghomTexture, Paenghom.paenghom_pos - game.cameraPos, Paenghom.paenghomRec, game.transparentColor);
-
+            theBatch.Draw(noteTexture, note.note_pos - game.cameraPos, note.noteRec, game.transparentColor);
             theBatch.Draw(candleTexture, candle.candle_pos - game.cameraPos, candle.sourceRectangle, game.transparentColor);
             theBatch.Draw(candleTexture2, candle2_pos - game.cameraPos, candle2.sourceRectangle, game.transparentColor);
 
@@ -171,6 +246,19 @@ namespace SK_03
             if (doorIsHit == true)
             {
                 theBatch.Draw(doorGuideTexture, doorGuide_pos - game.cameraPos, doorGuide.doorGuideRec, Color.White);
+            }
+            if (showNoteInteractGuide)
+            {
+                theBatch.Draw(guideTexture, guide_pos - game.cameraPos, guide.guideRec_right, Color.White);
+            }
+            if (noteGuideAlpha > 0f)
+            {
+                theBatch.Draw(noteGuideTexture, noteGuidePosition, noteGuideRec, Color.White * noteGuideAlpha);
+            }
+
+            if (noteFontAlpha > 0f)
+            {
+                theBatch.Draw(noteFont, new Vector2(670, 415), new Rectangle(357, 29, 622, 290), Color.White * noteFontAlpha);
             }
         }
     }
